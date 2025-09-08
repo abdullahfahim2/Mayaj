@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - Mayaj</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-blue-600 to-indigo-500 text-white p-6 shadow-lg text-center">
+    <h1 class="text-3xl font-bold">Mayaj - Product Details</h1>
+  </header>
+
+  <!-- Product Section -->
+  <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10">
+
+    <!-- Product Images -->
+    <div class="bg-white rounded-2xl shadow-md p-4">
+      <!-- Main Image -->
+      <img id="mainImage" src="https://m.media-amazon.com/images/I/6190lNSNbyL._AC_SY695_.jpg" alt="Product Image"
+        class="w-full h-[400px] object-contain rounded-xl mb-4 transition-all duration-300 bg-gray-100">
+
+
+      <!-- Thumbnails -->
+      <div class="flex gap-3">
+        <img class="w-20 h-20 object-cover rounded-lg cursor-pointer border-2 border-gray-300 hover:border-blue-500"
+          src="https://m.media-amazon.com/images/I/6190lNSNbyL._AC_SY695_.jpg" onclick="changeMainImage(this)">
+        <img class="w-20 h-20 object-cover rounded-lg cursor-pointer border-2 border-gray-300 hover:border-blue-500"
+          src="https://m.media-amazon.com/images/I/81zN34Whk2L._AC_SX695_.jpg" onclick="changeMainImage(this)">
+        <img class="w-20 h-20 object-cover rounded-lg cursor-pointer border-2 border-gray-300 hover:border-blue-500"
+          src="https://m.media-amazon.com/images/I/81uiWMk9dnL._AC_SX695_.jpg" onclick="changeMainImage(this)">
+        <img class="w-20 h-20 object-cover rounded-lg cursor-pointer border-2 border-gray-300 hover:border-blue-500"
+          src="https://m.media-amazon.com/images/I/81zN34Whk2L._AC_SX695_.jpg" onclick="changeMainImage(this)">
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div>
+      <h2 class="text-3xl font-bold mb-4">Stylish Sneakers</h2>
+      <p class="text-gray-600 mb-4">Premium quality sneakers for everyday comfort and style.</p>
+
+      <div class="flex items-center gap-4 mb-4">
+        <span class="text-2xl font-bold text-green-600">৳ 2,450</span>
+        <span class="text-gray-500 line-through">৳ 3,000</span>
+        <span class="bg-red-500 text-white px-2 py-1 rounded-lg text-sm">-20%</span>
+      </div>
+
+      <div class="flex items-center mb-4">
+        <span class="text-yellow-400 text-xl">⭐⭐⭐⭐☆</span>
+        <span class="ml-2 text-gray-600">(34 Reviews)</span>
+      </div>
+
+      <!-- Options -->
+      <div class="mb-4">
+        <p class="font-semibold mb-2">Select Size:</p>
+        <div class="flex gap-3">
+          <button class="px-4 py-2 border rounded-lg hover:bg-blue-600 hover:text-white">40</button>
+          <button class="px-4 py-2 border rounded-lg hover:bg-blue-600 hover:text-white">41</button>
+          <button class="px-4 py-2 border rounded-lg hover:bg-blue-600 hover:text-white">42</button>
+          <button class="px-4 py-2 border rounded-lg hover:bg-blue-600 hover:text-white">43</button>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <p class="font-semibold mb-2">Select Color:</p>
+        <div class="flex gap-3">
+          <div class="w-8 h-8 bg-black rounded-full border-2 border-gray-300 cursor-pointer"></div>
+          <div class="w-8 h-8 bg-blue-500 rounded-full border-2 border-gray-300 cursor-pointer"></div>
+          <div class="w-8 h-8 bg-red-500 rounded-full border-2 border-gray-300 cursor-pointer"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <button class="flex-1 bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition">🛒 Add to
+          Cart</button>
+        <button class="flex-1 bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition">⚡ Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Description -->
+  <section class="max-w-6xl mx-auto px-6 py-12">
+    <h3 class="text-2xl font-bold mb-4">Product Description</h3>
+    <p class="text-gray-700 leading-relaxed">
+      High-quality sneakers designed for comfort and style. Perfect for sports, casual outings, or daily wear.
+    </p>
+  </section>
+
+  <!-- Customer Review Section -->
+  <section class="max-w-6xl mx-auto px-6 py-12">
+    <h3 class="text-2xl font-bold mb-6">Customer Reviews</h3>
+
+    <!-- Review List -->
+    <div id="reviewList" class="space-y-4 mb-8"></div>
+
+    <!-- Add Review Form -->
+    <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+      <h3 class="text-lg font-semibold mb-4" id="formTitle">Write a Review</h3>
+      <input type="text" id="username" placeholder="Your Name"
+        class="w-full border rounded-lg p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <textarea id="reviewText" rows="3" placeholder="Your Review"
+        class="w-full border rounded-lg p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+
+      <!-- Star Rating -->
+      <div class="flex items-center gap-2 mb-4">
+        <span class="font-semibold">Your Rating:</span>
+        <div id="stars" class="flex gap-1 text-2xl cursor-pointer text-gray-400">
+          <span data-value="1">★</span>
+          <span data-value="2">★</span>
+          <span data-value="3">★</span>
+          <span data-value="4">★</span>
+          <span data-value="5">★</span>
+        </div>
+      </div>
+
+      <button id="submitBtn" onclick="addReview()"
+        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+        Submit Review
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center p-6 mt-10">
+    <p>&copy; 2025 Mayaj. All Rights Reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Main Image Change
+    function changeMainImage(img) {
+      document.getElementById("mainImage").src = img.src;
+    }
+
+    let selectedRating = 0;
+    let editIndex = null;
+    const adminPassword = "admin123";
+
+    const stars = document.querySelectorAll("#stars span");
+    stars.forEach(star => {
+      star.addEventListener("click", () => {
+        selectedRating = star.getAttribute("data-value");
+        stars.forEach(s => {
+          if (s.getAttribute("data-value") <= selectedRating) {
+            s.classList.remove("text-gray-400");
+            s.classList.add("text-yellow-500");
+          } else {
+            s.classList.remove("text-yellow-500");
+            s.classList.add("text-gray-400");
+          }
+        });
+      });
+    });
+
+    window.onload = function () { renderReviews(); }
+
+    function addReview() {
+      const name = document.getElementById("username").value.trim();
+      const review = document.getElementById("reviewText").value.trim();
+      if (name === "" || review === "" || selectedRating === 0) {
+        alert("Please enter your name, review and rating!");
+        return;
+      }
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      if (editIndex !== null) {
+        reviews[editIndex] = { name, rating: selectedRating, text: review, likes: 0, replies: [] };
+        resetForm();
+      } else {
+        reviews.push({ name, rating: selectedRating, text: review, likes: 0, replies: [] });
+      }
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+      renderReviews();
+    }
+
+    function displayReview(review, index) {
+      const reviewBox = document.createElement("div");
+      reviewBox.className = "bg-white p-4 rounded-xl shadow";
+      let starsText = "⭐".repeat(review.rating);
+      reviewBox.innerHTML = `
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="font-semibold">${review.name}</p>
+            <p class="text-yellow-500">${starsText}</p>
+            <p class="text-gray-600">${review.text}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="deleteReview(${index})" class="text-red-500 hover:text-red-700">🗑️</button>
+          </div>
+        </div>
+        <div class="flex gap-4 mt-3 text-sm">
+          <button onclick="likeReview(${index})" class="text-green-600 hover:text-green-800">👍 Like (${review.likes})</button>
+          <button onclick="showReplyBox(${index})" class="text-purple-600 hover:text-purple-800">💬 Reply</button>
+        </div>
+        <div id="replyBox-${index}" class="hidden mt-3">
+          <input type="text" id="replyName-${index}" placeholder="Your Name" class="w-full border rounded-lg p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-purple-400">
+          <textarea id="replyText-${index}" rows="2" placeholder="Your Reply" class="w-full border rounded-lg p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-purple-400"></textarea>
+          <button onclick="addReply(${index})" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">Submit Reply</button>
+        </div>
+        <div id="replies-${index}" class="ml-6 mt-3 space-y-2"></div>
+      `;
+      document.getElementById("reviewList").appendChild(reviewBox);
+
+      review.replies.forEach(reply => {
+        const replyBox = document.createElement("div");
+        replyBox.className = "bg-gray-100 p-2 rounded-lg";
+        replyBox.innerHTML = `<p class="font-semibold">${reply.name}</p><p>${reply.text}</p>`;
+        document.getElementById(`replies-${index}`).appendChild(replyBox);
+      });
+    }
+
+    function renderReviews() {
+      document.getElementById("reviewList").innerHTML = "";
+      const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews.forEach((r, i) => displayReview(r, i));
+    }
+
+    function deleteReview(index) {
+      let pass = prompt("Enter admin password to delete:");
+      if (pass !== adminPassword) {
+        alert("Wrong password! Only admin can delete.");
+        return;
+      }
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews.splice(index, 1);
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+      renderReviews();
+    }
+
+    function likeReview(index) {
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews[index].likes++;
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+      renderReviews();
+    }
+
+    function showReplyBox(index) {
+      document.getElementById(`replyBox-${index}`).classList.toggle("hidden");
+    }
+
+    function addReply(index) {
+      const name = document.getElementById(`replyName-${index}`).value.trim();
+      const text = document.getElementById(`replyText-${index}`).value.trim();
+      if (name === "" || text === "") { alert("Enter your name and reply!"); return; }
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews[index].replies.push({ name, text });
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+      renderReviews();
+    }
+
+    function resetForm() {
+      document.getElementById("username").value = "";
+      document.getElementById("reviewText").value = "";
+      selectedRating = 0;
+      editIndex = null;
+      document.getElementById("formTitle").innerText = "Write a Review";
+      document.getElementById("submitBtn").innerText = "Submit Review";
+      stars.forEach(s => {
+        s.classList.remove("text-yellow-500");
+        s.classList.add("text-gray-400");
+      });
+    }
+  </script>
+
+</body>
+
+</html>

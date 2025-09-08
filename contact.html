@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Mayaj</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="tailwind.js"></script> -->
+
+    <!-- tailwind custom configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        'primary-dark': '#4338CA',
+                        secondary: '#10B981',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- custom css -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .contact-container {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .form-input,
+        .form-textarea {
+            transition: all 0.2s ease;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .submit-btn {
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #4F46E5, #10B981);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px -5px rgba(79, 70, 229, 0.4);
+            background: linear-gradient(45deg, #4338CA, #0DA271);
+        }
+
+        .contact-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+            color: #4F46E5;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .faq-question:hover {
+            color: #4F46E5;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .faq-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .bottom-nav {
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .contact-sidebar {
+                order: 2;
+            }
+
+            .contact-form {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Top Announcement Bar -->
+    <div class="bg-indigo-600 text-white py-2 text-center text-sm">
+        Free shipping on all orders over ৳2000! 🚚
+    </div>
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">
+                    <i class="fas fa-shoe-prints mr-2"></i>Mayaj
+                </a>
+            </div>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+                <a href="products.html" class="text-gray-600 hover:text-indigo-600 font-medium">Products</a>
+                <a href="offers.html" class="text-gray-600 hover:text-indigo-600 font-medium">Offers</a>
+                <a href="about.html" class="text-gray-600 hover:text-indigo-600 font-medium">About</a>
+                <a href="contact.html" class="text-indigo-600 font-medium">Contact</a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <a href="cart.html" class="text-gray-600 relative">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span
+                        class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                </a>
+                <a href="login.html" class="text-gray-600 hover:text-indigo-600">
+                    <i class="fas fa-user text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Header -->
+    <section class="py-12 bg-gradient-to-r from-primary to-primary-dark text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">Get in Touch</h1>
+            <p class="text-xl max-w-2xl mx-auto">We'd love to hear from you. Our friendly team is always here to chat.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-12 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Contact Information -->
+                <div class="lg:col-span-1 contact-sidebar">
+                    <div class="bg-white contact-container p-6 mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
+
+                        <div class="space-y-6">
+                            <div class="contact-card bg-gray-50 p-5 rounded-lg">
+                                <div class="flex items-start">
+                                    <div class="contact-icon text-primary text-xl mr-4">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Our Location</h3>
+                                        <p class="text-gray-600">123 Fashion Street, Gulshan Avenue<br>Dhaka 1212,
+                                            Bangladesh</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-card bg-gray-50 p-5 rounded-lg">
+                                <div class="flex items-start">
+                                    <div class="contact-icon text-primary text-xl mr-4">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Phone Number</h3>
+                                        <p class="text-gray-600">+880 XXXX-XXXXXX</p>
+                                        <p class="text-gray-600">+880 XXXX-XXXXXX</p>
+                                        <p class="text-sm text-gray-500 mt-1">Mon-Fri from 9am to 5pm</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-card bg-gray-50 p-5 rounded-lg">
+                                <div class="flex items-start">
+                                    <div class="contact-icon text-primary text-xl mr-4">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Email Address</h3>
+                                        <p class="text-gray-600">info@mayaj.com</p>
+                                        <p class="text-gray-600">support@mayaj.com</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-card bg-gray-50 p-5 rounded-lg">
+                                <div class="flex items-start">
+                                    <div class="contact-icon text-primary text-xl mr-4">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">Working Hours</h3>
+                                        <p class="text-gray-600">Saturday - Thursday: 9:00 AM - 8:00 PM</p>
+                                        <p class="text-gray-600">Friday: 3:00 PM - 8:00 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <h3 class="font-semibold text-gray-900 mb-4">Follow Us</h3>
+                            <div class="flex space-x-4">
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map -->
+                    <div class="bg-white contact-container p-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Location</h2>
+                        <div class="map-container bg-gray-200">
+                            <!-- In a real implementation, you would embed a Google Map here -->
+                            <div
+                                class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark text-white">
+                                <div class="text-center">
+                                    <i class="fas fa-map-marked-alt text-4xl mb-2"></i>
+                                    <p>Interactive Map</p>
+                                    <p class="text-sm opacity-75">(Would show our location)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-2 contact-form">
+                    <div class="bg-white contact-container p-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+                        <form id="contact-form">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full
+                                        Name</label>
+                                    <input type="text" id="name" class="form-input w-full px-4 py-3"
+                                        placeholder="Your name" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email
+                                        Address</label>
+                                    <input type="email" id="email" class="form-input w-full px-4 py-3"
+                                        placeholder="your@email.com" required>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone
+                                        Number</label>
+                                    <div class="flex">
+                                        <div
+                                            class="flex-shrink-0 z-10 inline-flex items-center py-3 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-l-lg">
+                                            +880
+                                        </div>
+                                        <input type="tel" id="phone" class="form-input rounded-l-none w-full px-4 py-3"
+                                            placeholder="1XXXXXXXXX" pattern="[0-9]{10}">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="subject"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                    <input type="text" id="subject" class="form-input w-full px-4 py-3"
+                                        placeholder="What is this regarding?" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="department"
+                                    class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                                <select id="department" class="form-input w-full px-4 py-3" required>
+                                    <option value="">Select Department</option>
+                                    <option value="customer-service">Customer Service</option>
+                                    <option value="technical-support">Technical Support</option>
+                                    <option value="billing">Billing & Payments</option>
+                                    <option value="product-info">Product Information</option>
+                                    <option value="returns">Returns & Exchanges</option>
+                                    <option value="wholesale">Wholesale Inquiries</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="message"
+                                    class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="message" rows="5" class="form-textarea w-full px-4 py-3"
+                                    placeholder="How can we help you?" required></textarea>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="file" class="block text-sm font-medium text-gray-700 mb-1">Attachments
+                                    (Optional)</label>
+                                <input type="file" id="file" class="form-input w-full px-4 py-2">
+                                <p class="text-xs text-gray-500 mt-1">Upload screenshots or documents if needed. Max
+                                    file size: 5MB</p>
+                            </div>
+
+                            <button type="submit"
+                                class="submit-btn w-full text-white font-semibold py-3 px-8 rounded-lg">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <i class="fas fa-shoe-prints mr-2"></i>Mayaj
+                    </h3>
+                    <p class="text-gray-400">Step into style with our premium collection of footwear for every
+                        occasion.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="offers.html" class="text-gray-400 hover:text-white">Offers</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="faqs.html" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="returns.html" class="text-gray-400 hover:text-white">Returns & Exchanges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Payment Partners</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
+                            alt="Mastercard" class="h-8 bg-white p-1 rounded">
+                        <img src="https://seeklogo.com/images/B/bkash-logo-8357890947-seeklogo.com.png" alt="bKash"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="Nagad"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"
+                            class="h-8 bg-white p-1 rounded">
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Mayaj. All rights reserved. Developed and Managed By <a href="#"
+                        class="text-white">MiFa</a>!</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation Bar (for mobile) -->
+    <nav class="bottom-nav md:hidden fixed bottom-0 w-full bg-white z-50">
+        <div class="flex justify-around items-center py-3">
+            <a href="index.html" class="text-center text-gray-600">
+                <i class="fas fa-home text-lg"></i>
+                <p class="text-xs mt-1">Home</p>
+            </a>
+            <a href="products.html" class="text-center text-gray-600">
+                <i class="fas fa-shopping-bag text-lg"></i>
+                <p class="text-xs mt-1">Products</p>
+            </a>
+            <a href="offers.html" class="text-center text-gray-600">
+                <i class="fas fa-tag text-lg"></i>
+                <p class="text-xs mt-1">Offers</p>
+            </a>
+            <a href="cart.html" class="text-center text-gray-600">
+                <i class="fas fa-shopping-cart text-lg"></i>
+                <p class="text-xs mt-1">Cart</p>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // FAQ toggle functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+
+                question.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Form submission
+            const contactForm = document.getElementById('contact-form');
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Basic validation
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const department = document.getElementById('department').value;
+                const message = document.getElementById('message').value;
+
+                if (!name || !email || !subject || !department || !message) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                // In a real application, you would submit the form data to a server here
+                // For demo purposes, we'll just show a success message
+                alert('Thank you for your message! We will get back to you within 24 hours.');
+                contactForm.reset();
+            });
+
+            // Input field effects
+            const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.classList.add('ring-2', 'ring-primary', 'ring-opacity-50');
+                });
+
+                input.addEventListener('blur', function () {
+                    this.classList.remove('ring-2', 'ring-primary', 'ring-opacity-50');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
