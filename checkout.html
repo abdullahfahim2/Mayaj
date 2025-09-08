@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Mayaj</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="tailwind.js"></script> -->
+
+    <!-- tailwind custom configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        'primary-dark': '#4338CA',
+                        secondary: '#10B981',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- custom css -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .checkout-section {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .checkout-section.active {
+            border-left: 4px solid #4F46E5;
+        }
+
+        .form-input {
+            transition: all 0.2s ease;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+        }
+
+        .form-input:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .payment-option {
+            transition: all 0.2s ease;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+        }
+
+        .payment-option:hover,
+        .payment-option.selected {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .checkout-btn {
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #4F46E5, #10B981);
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px -5px rgba(79, 70, 229, 0.4);
+            background: linear-gradient(45deg, #4338CA, #0DA271);
+        }
+
+        .back-btn {
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #F3F4F6;
+        }
+
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+
+        .step-indicator.active {
+            background-color: #4F46E5;
+            color: white;
+        }
+
+        .step-indicator.completed {
+            background-color: #10B981;
+            color: white;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .divider::before {
+            margin-right: 0.5rem;
+        }
+
+        .divider::after {
+            margin-left: 0.5rem;
+        }
+
+        .bottom-nav {
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                flex-direction: column-reverse;
+            }
+
+            .order-summary {
+                position: relative !important;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Top Announcement Bar -->
+    <div class="bg-indigo-600 text-white py-2 text-center text-sm">
+        Free shipping on all orders over ৳2000! 🚚
+    </div>
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">
+                    <i class="fas fa-shoe-prints mr-2"></i>Mayaj
+                </a>
+            </div>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+                <a href="products.html" class="text-gray-600 hover:text-indigo-600 font-medium">Products</a>
+                <a href="offers.html" class="text-gray-600 hover:text-indigo-600 font-medium">Offers</a>
+                <a href="about.html" class="text-gray-600 hover:text-indigo-600 font-medium">About</a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <a href="cart.html" class="text-gray-600 relative">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span
+                        class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-indigo-600">
+                    <i class="fas fa-user text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Progress -->
+    <div class="bg-white shadow-sm py-4">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex justify-center items-center">
+                <div class="flex items-center">
+                    <div
+                        class="step-indicator w-8 h-8 rounded-full flex items-center justify-center bg-primary text-white">
+                        1
+                    </div>
+                    <span class="ml-2 font-medium text-primary">Cart</span>
+                </div>
+
+                <div class="w-16 h-1 bg-primary mx-2"></div>
+
+                <div class="flex items-center">
+                    <div
+                        class="step-indicator w-8 h-8 rounded-full flex items-center justify-center bg-primary text-white">
+                        2
+                    </div>
+                    <span class="ml-2 font-medium text-primary">Information</span>
+                </div>
+
+                <div class="w-16 h-1 bg-primary mx-2"></div>
+
+                <div class="flex items-center">
+                    <div class="step-indicator w-8 h-8 rounded-full flex items-center justify-center bg-gray-200">
+                        3
+                    </div>
+                    <span class="ml-2 font-medium text-gray-500">Payment</span>
+                </div>
+
+                <div class="w-16 h-1 bg-gray-200 mx-2"></div>
+
+                <div class="flex items-center">
+                    <div class="step-indicator w-8 h-8 rounded-full flex items-center justify-center bg-gray-200">
+                        4
+                    </div>
+                    <span class="ml-2 font-medium text-gray-500">Confirmation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Section -->
+    <section class="py-8 bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 max-w-6xl checkout-container flex flex-col lg:flex-row gap-8">
+            <!-- Checkout Form -->
+            <div class="lg:w-2/3 w-full">
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">Contact Information</h2>
+                        <p class="text-sm text-gray-600">Already have an account? <a href="#"
+                                class="text-primary font-medium">Log in</a></p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email address</label>
+                        <input type="email" id="email" class="form-input w-full px-4 py-3" placeholder="your@email.com">
+                        <p class="text-xs text-gray-500 mt-1">We'll send order confirmation to this email</p>
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <input type="checkbox" id="newsletter" class="rounded text-primary focus:ring-primary">
+                        <label for="newsletter" class="ml-2 text-sm text-gray-700">Email me with news and offers</label>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Shipping Address</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First
+                                name</label>
+                            <input type="text" id="first-name" class="form-input w-full px-4 py-3" placeholder="John">
+                        </div>
+                        <div>
+                            <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last
+                                name</label>
+                            <input type="text" id="last-name" class="form-input w-full px-4 py-3" placeholder="Doe">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                        <input type="text" id="address" class="form-input w-full px-4 py-3"
+                            placeholder="House #123, Road #456">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="apartment" class="block text-sm font-medium text-gray-700 mb-1">Apartment, suite,
+                            etc. (optional)</label>
+                        <input type="text" id="apartment" class="form-input w-full px-4 py-3"
+                            placeholder="Apartment #789">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                            <input type="text" id="city" class="form-input w-full px-4 py-3" placeholder="Dhaka">
+                        </div>
+                        <div>
+                            <label for="division" class="block text-sm font-medium text-gray-700 mb-1">Division</label>
+                            <select id="division" class="form-input w-full px-4 py-3">
+                                <option value="">Select Division</option>
+                                <option value="dhaka">Dhaka</option>
+                                <option value="chattogram">Chattogram</option>
+                                <option value="khulna">Khulna</option>
+                                <option value="barishal">Barishal</option>
+                                <option value="mymensingh">Mymensingh</option>
+                                <option value="rajshahi">Rajshahi</option>
+                                <option value="rangpur">Rangpur</option>
+                                <option value="sylhet">Sylhet</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="postal-code" class="block text-sm font-medium text-gray-700 mb-1">Postal
+                                code</label>
+                            <input type="text" id="postal-code" class="form-input w-full px-4 py-3" placeholder="1200">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone number</label>
+                        <div class="flex">
+                            <div
+                                class="flex-shrink-0 z-10 inline-flex items-center py-3 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-l-lg">
+                                +880
+                            </div>
+                            <input type="tel" id="phone" class="form-input rounded-l-none w-full px-4 py-3"
+                                placeholder="1XXXXXXXXX">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" id="save-address" class="rounded text-primary focus:ring-primary">
+                        <label for="save-address" class="ml-2 text-sm text-gray-700">Save this information for next
+                            time</label>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Shipping Method</h2>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 border rounded-lg cursor-pointer hover:border-primary">
+                            <input type="radio" name="shipping-method" id="standard"
+                                class="text-primary focus:ring-primary" checked>
+                            <label for="standard" class="ml-3 flex flex-col">
+                                <span class="font-medium">Standard Delivery</span>
+                                <span class="text-sm text-gray-500">3-5 business days (Dhaka), 5-7 days (Other
+                                    cities)</span>
+                            </label>
+                            <div class="ml-auto font-medium">৳ 100</div>
+                        </div>
+
+                        <div class="flex items-center p-4 border rounded-lg cursor-pointer hover:border-primary">
+                            <input type="radio" name="shipping-method" id="express"
+                                class="text-primary focus:ring-primary">
+                            <label for="express" class="ml-3 flex flex-col">
+                                <span class="font-medium">Express Delivery</span>
+                                <span class="text-sm text-gray-500">1-2 business days (Dhaka only)</span>
+                            </label>
+                            <div class="ml-auto font-medium">৳ 250</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between">
+                    <a href="cart.html"
+                        class="back-btn text-primary font-semibold py-3 px-6 rounded-lg border border-gray-300 flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Return to Cart
+                    </a>
+                    <a href="payment.html"
+                        class="checkout-btn text-white font-semibold py-3 px-8 rounded-lg flex items-center">
+                        Continue to Payment <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="lg:w-1/3 w-full">
+                <div class="bg-white rounded-xl shadow-sm p-6 sticky top-24">
+                    <h2 class="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
+
+                    <div class="space-y-4 mb-6">
+                        <!-- Product 1 -->
+                        <div class="flex">
+                            <div class="w-16 h-16 rounded-md overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
+                                    alt="Nike Air Max" class="w-full h-full object-cover">
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <h3 class="font-medium text-gray-900">Nike Air Max</h3>
+                                <p class="text-sm text-gray-500">Size: US 9, Color: Black/White</p>
+                                <p class="text-sm text-gray-500">Qty: 1</p>
+                            </div>
+                            <div class="font-medium">৳ 8,999</div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="flex">
+                            <div class="w-16 h-16 rounded-md overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                                    alt="Adidas Ultraboost" class="w-full h-full object-cover">
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <h3 class="font-medium text-gray-900">Adidas Ultraboost</h3>
+                                <p class="text-sm text-gray-500">Size: US 9, Color: Core Black</p>
+                                <p class="text-sm text-gray-500">Qty: 1</p>
+                            </div>
+                            <div class="font-medium">৳ 12,499</div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="flex">
+                            <div class="w-16 h-16 rounded-md overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                                    alt="Sports Backpack" class="w-full h-full object-cover">
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <h3 class="font-medium text-gray-900">Sports Backpack</h3>
+                                <p class="text-sm text-gray-500">Color: Navy Blue</p>
+                                <p class="text-sm text-gray-500">Qty: 1</p>
+                            </div>
+                            <div class="font-medium">৳ 2,499</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 border-t pt-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span class="font-medium">৳ 23,997</span>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Discount</span>
+                            <span class="text-green-600 font-medium">-৳ 2,200</span>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Shipping</span>
+                            <span class="font-medium">৳ 100</span>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Tax</span>
+                            <span class="font-medium">৳ 480</span>
+                        </div>
+
+                        <div class="flex justify-between pt-3 border-t">
+                            <span class="font-semibold text-lg">Total</span>
+                            <span class="font-bold text-lg text-primary">৳ 22,377</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-3 bg-blue-50 rounded-lg">
+                        <div class="flex items-center">
+                            <i class="fas fa-truck text-blue-500 mr-2"></i>
+                            <span class="text-sm font-medium">Free Shipping</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1">You've qualified for free shipping on your order!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security & Trust Badges -->
+    <div class="bg-gray-100 py-8">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="text-center mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Secure & Trusted Checkout</h3>
+            </div>
+            <div class="flex justify-center items-center flex-wrap gap-6">
+                <div class="flex items-center">
+                    <i class="fas fa-lock text-green-500 text-2xl mr-2"></i>
+                    <span class="text-sm">256-bit SSL Encryption</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-blue-500 text-2xl mr-2"></i>
+                    <span class="text-sm">Secure Payment</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-purple-500 text-2xl mr-2"></i>
+                    <span class="text-sm">Verified by</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa"
+                        class="h-5 ml-2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <i class="fas fa-shoe-prints mr-2"></i>Mayaj
+                    </h3>
+                    <p class="text-gray-400">Step into style with our premium collection of footwear for every
+                        occasion.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="offers.html" class="text-gray-400 hover:text-white">Offers</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="faqs.html" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="returns.html" class="text-gray-400 hover:text-white">Returns & Exchanges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Payment Partners</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
+                            alt="Mastercard" class="h-8 bg-white p-1 rounded">
+                        <img src="https://seeklogo.com/images/B/bkash-logo-8357890947-seeklogo.com.png" alt="bKash"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="Nagad"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"
+                            class="h-8 bg-white p-1 rounded">
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Mayaj. All rights reserved.Developed and Managed By <a href="#"
+                        class="text-white">MiFa</a>!</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation Bar (for mobile) -->
+    <nav class="bottom-nav md:hidden fixed bottom-0 w-full bg-white z-50">
+        <div class="flex justify-around items-center py-3">
+            <a href="index.html" class="text-center text-gray-600">
+                <i class="fas fa-home text-lg"></i>
+                <p class="text-xs mt-1">Home</p>
+            </a>
+            <a href="products.html" class="text-center text-gray-600">
+                <i class="fas fa-shopping-bag text-lg"></i>
+                <p class="text-xs mt-1">Products</p>
+            </a>
+            <a href="offers.html" class="text-center text-gray-600">
+                <i class="fas fa-tag text-lg"></i>
+                <p class="text-xs mt-1">Offers</p>
+            </a>
+            <a href="cart.html" class="text-center text-indigo-600">
+                <i class="fas fa-shopping-cart text-lg"></i>
+                <p class="text-xs mt-1">Cart</p>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Form validation
+            const formInputs = document.querySelectorAll('.form-input');
+
+            formInputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    if (this.value.trim() !== '') {
+                        this.classList.add('bg-gray-50');
+                    } else {
+                        this.classList.remove('bg-gray-50');
+                    }
+                });
+            });
+
+            // Shipping method selection
+            const shippingMethods = document.querySelectorAll('input[name="shipping-method"]');
+
+            shippingMethods.forEach(method => {
+                method.addEventListener('change', function () {
+                    // In a real implementation, this would update the shipping cost
+                    console.log('Shipping method changed to:', this.id);
+                });
+            });
+
+            // Division selection
+            const divisionSelect = document.getElementById('division');
+
+            divisionSelect.addEventListener('change', function () {
+                // In a real implementation, this might update city options or shipping estimates
+                console.log('Division selected:', this.value);
+            });
+        });
+    </script>
+</body>
+
+</html>

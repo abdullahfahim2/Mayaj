@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mayaj</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="tailwind.js"></script> -->
+
+    <!-- tailwind custom configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        'primary-dark': '#4338CA',
+                        secondary: '#10B981',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- custom css -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient(to bottom right, #F9FAFB, #E5E7EB);
+            min-height: 100vh;
+        }
+
+        .login-container {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .form-input {
+            transition: all 0.2s ease;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+        }
+
+        .form-input:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .login-btn {
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #4F46E5, #10B981);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px -5px rgba(79, 70, 229, 0.4);
+            background: linear-gradient(45deg, #4338CA, #0DA271);
+        }
+
+        .social-btn {
+            transition: all 0.3s ease;
+            border: 2px solid #E5E7EB;
+        }
+
+        .social-btn:hover {
+            border-color: #4F46E5;
+            transform: translateY(-2px);
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            color: #4F46E5;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .divider::before {
+            margin-right: 0.5rem;
+        }
+
+        .divider::after {
+            margin-left: 0.5rem;
+        }
+
+        .bottom-nav {
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+
+        .input-with-icon {
+            padding-left: 40px;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .login-image {
+                display: none;
+            }
+
+            .remember-forgot {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <!-- Top Announcement Bar -->
+    <div class="bg-indigo-600 text-white py-2 text-center text-sm">
+        Free shipping on all orders over ৳2000! 🚚
+    </div>
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-indigo-600">
+                    <i class="fas fa-shoe-prints mr-2"></i>Mayaj
+                </a>
+            </div>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+                <a href="products.html" class="text-gray-600 hover:text-indigo-600 font-medium">Products</a>
+                <a href="offers.html" class="text-gray-600 hover:text-indigo-600 font-medium">Offers</a>
+                <a href="about.html" class="text-gray-600 hover:text-indigo-600 font-medium">About</a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <a href="cart.html" class="text-gray-600 relative">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span
+                        class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+                </a>
+                <a href="login.html" class="text-indigo-600">
+                    <i class="fas fa-user text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <main class="flex-grow py-8 px-4">
+        <div class="container mx-auto max-w-5xl">
+            <div class="bg-white login-container flex">
+                <!-- Login Form -->
+                <div class="w-full md:w-1/2 p-8">
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl font-bold text-gray-900">Welcome Back</h1>
+                        <p class="text-gray-600 mt-2">Sign in to your Mayaj account</p>
+                    </div>
+
+                    <form id="login-form">
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email or Phone
+                                Number</label>
+                            <div class="input-group">
+                                <span class="input-icon">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" id="email" class="form-input w-full px-4 py-3 input-with-icon"
+                                    placeholder="your@email.com or 01XXXXXXXXX" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <div class="input-group">
+                                <span class="input-icon">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" id="password" class="form-input w-full px-4 py-3 input-with-icon"
+                                    placeholder="Enter your password" required>
+                                <span
+                                    class="password-toggle absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mb-6 remember-forgot">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="remember" class="rounded text-primary focus:ring-primary">
+                                <label for="remember" class="ml-2 text-sm text-gray-700">Remember me</label>
+                            </div>
+                            <a href="forgot-password.html" class="text-sm text-primary hover:underline">Forgot
+                                password?</a>
+                        </div>
+
+                        <button type="submit"
+                            class="login-btn w-full text-white font-semibold py-3 px-8 rounded-lg mb-6">
+                            Sign In
+                        </button>
+
+                        <div class="divider my-6">Or continue with</div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <a href="#"
+                                class="social-btn bg-white text-gray-700 font-medium py-3 px-4 rounded-lg flex items-center justify-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                                    alt="Google" class="h-5 mr-2">
+                                Google
+                            </a>
+                            <a href="#"
+                                class="social-btn bg-blue-800 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center">
+                                <i class="fab fa-facebook-f mr-2"></i>
+                                Facebook
+                            </a>
+                        </div>
+
+                        <div class="text-center">
+                            <p class="text-gray-600">Don't have an account? <a href="register.html"
+                                    class="text-primary font-medium hover:underline">Create one</a></p>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Login Side Image -->
+                <div
+                    class="login-image hidden md:block md:w-1/2 bg-gradient-to-br from-primary to-primary-dark relative">
+                    <div class="absolute inset-0 flex items-center justify-center p-12">
+                        <div class="text-center text-white">
+                            <h2 class="text-3xl font-bold mb-4">Welcome to Mayaj</h2>
+                            <p class="text-lg mb-6">Sign in to enjoy these benefits:</p>
+                            <ul class="space-y-3 text-left">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                    <span>Track your orders</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                    <span>Access your wishlist</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                    <span>Exclusive member discounts</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                    <span>Faster checkout</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                    <span>Personalized recommendations</span>
+                                </li>
+                            </ul>
+
+                            <div class="mt-10 p-4 bg-white bg-opacity-10 rounded-lg">
+                                <h3 class="text-xl font-bold mb-2">New Customer?</h3>
+                                <p class="mb-3">Create an account to start shopping with us</p>
+                                <a href="register.html"
+                                    class="inline-block bg-white text-primary font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition duration-300">
+                                    Sign Up Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Security & Trust Badges -->
+    <div class="bg-gray-100 py-8 mt-8">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Secure & Trusted Login</h3>
+            </div>
+            <div class="flex justify-center items-center flex-wrap gap-6">
+                <div class="flex items-center">
+                    <i class="fas fa-lock text-green-500 text-2xl mr-2"></i>
+                    <span class="text-sm">256-bit SSL Encryption</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-blue-500 text-2xl mr-2"></i>
+                    <span class="text-sm">Secure Authentication</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-user-shield text-purple-500 text-2xl mr-2"></i>
+                    <span class="text-sm">Privacy Protected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <i class="fas fa-shoe-prints mr-2"></i>Mayaj
+                    </h3>
+                    <p class="text-gray-400">Step into style with our premium collection of footwear for every
+                        occasion.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="offers.html" class="text-gray-400 hover:text-white">Offers</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="faqs.html" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="returns.html" class="text-gray-400 hover:text-white">Returns & Exchanges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Payment Partners</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
+                            alt="Mastercard" class="h-8 bg-white p-1 rounded">
+                        <img src="https://seeklogo.com/images/B/bkash-logo-8357890947-seeklogo.com.png" alt="bKash"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="Nagad"
+                            class="h-8 bg-white p-1 rounded">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"
+                            class="h-8 bg-white p-1 rounded">
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Mayaj. All rights reserved. Developed and Managed By <a href="#"
+                        class="text-white">MiFa</a>!</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation Bar (for mobile) -->
+    <nav class="bottom-nav md:hidden fixed bottom-0 w-full bg-white z-50">
+        <div class="flex justify-around items-center py-3">
+            <a href="index.html" class="text-center text-gray-600">
+                <i class="fas fa-home text-lg"></i>
+                <p class="text-xs mt-1">Home</p>
+            </a>
+            <a href="products.html" class="text-center text-gray-600">
+                <i class="fas fa-shopping-bag text-lg"></i>
+                <p class="text-xs mt-1">Products</p>
+            </a>
+            <a href="offers.html" class="text-center text-gray-600">
+                <i class="fas fa-tag text-lg"></i>
+                <p class="text-xs mt-1">Offers</p>
+            </a>
+            <a href="cart.html" class="text-center text-gray-600">
+                <i class="fas fa-shopping-cart text-lg"></i>
+                <p class="text-xs mt-1">Cart</p>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Password visibility toggle
+            const passwordToggle = document.querySelector('.password-toggle');
+            const passwordInput = document.getElementById('password');
+
+            passwordToggle.addEventListener('click', function () {
+                const icon = this.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+
+            // Form submission
+            const loginForm = document.getElementById('login-form');
+
+            loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Basic validation
+                if (!email || !password) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                // In a real application, you would submit the form data to a server here
+                // For demo purposes, we'll just show a success message
+                alert('Login successful! Redirecting to homepage...');
+                window.location.href = 'index.html';
+            });
+
+            // Input field effects
+            const formInputs = document.querySelectorAll('.form-input');
+
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.parentElement.classList.add('ring-2', 'ring-primary', 'ring-opacity-50');
+                });
+
+                input.addEventListener('blur', function () {
+                    this.parentElement.classList.remove('ring-2', 'ring-primary', 'ring-opacity-50');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
